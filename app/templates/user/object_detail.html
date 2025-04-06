@@ -1,0 +1,330 @@
+{% extends "user/base.html" %}
+
+{% block title %}{{ object.name }} | Mastodontco{% endblock %}
+
+{% block content %}
+<!-- Хедер объекта -->
+<div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+    <a href="{{ url_for('user.objects') }}" class="inline-flex items-center text-sm text-blue-500 hover:text-blue-700 mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Назад к списку объектов
+    </a>
+    
+    <div class="flex flex-col md:flex-row md:items-center justify-between">
+        <div>
+            <div class="flex items-center">
+                <h1 class="text-2xl font-bold text-gray-900">{{ object.name }}</h1>
+                <span class="ml-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                    {% if object.status == 'active' %}
+                        bg-green-100 text-green-800
+                    {% elif object.status == 'planning' %}
+                        bg-blue-100 text-blue-800
+                    {% elif object.status == 'construction' %}
+                        bg-yellow-100 text-yellow-800
+                    {% elif object.status == 'completed' %}
+                        bg-gray-100 text-gray-800
+                    {% elif object.status == 'paused' %}
+                        bg-red-100 text-red-800
+                    {% endif %}">
+                    {{ object.status_display }}
+                </span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">{{ object.address }}</p>
+        </div>
+        
+        <div class="mt-4 md:mt-0 flex gap-2">
+            <a href="{{ url_for('user.documents', object_id=object.id) }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Документы
+            </a>
+            <a href="{{ url_for('user.photos', object_id=object.id) }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Фотоотчеты
+            </a>
+            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                </svg>
+                Чат
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Основная информация -->
+    <div class="lg:col-span-2 space-y-6">
+        <!-- Фото объекта -->
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div class="h-64 md:h-80 bg-gray-200">
+                {% if object.image %}
+                <img src="{{ object.image }}" alt="{{ object.name }}" class="w-full h-full object-cover">
+                {% else %}
+                <div class="w-full h-full flex items-center justify-center bg-gray-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Детали объекта -->
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Детали объекта</h2>
+            
+            <!-- Прогресс -->
+            <div class="mb-6">
+                <div class="flex justify-between items-center mb-2">
+                    <div class="text-sm font-medium text-gray-700">Прогресс работ</div>
+                    <div class="text-sm font-semibold text-gray-900">{{ object.progress }}%</div>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-blue-500 h-2.5 rounded-full" style="width: {{ object.progress }}%"></div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <dl class="space-y-3">
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Адрес</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ object.address }}</dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Тип объекта</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ object.type }}</dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Площадь</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ object.area }} м²</dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Заказчик</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ object.client }}</dd>
+                        </div>
+                    </dl>
+                </div>
+                <div>
+                    <dl class="space-y-3">
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Дата начала</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ object.start_date }}</dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Планируемое завершение</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ object.end_date }}</dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Руководитель проекта</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ object.manager }}</dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Бюджет</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ object.budget }} ₽</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Описание объекта -->
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Описание объекта</h2>
+            <div class="prose prose-sm max-w-none">
+                {{ object.description|safe }}
+            </div>
+        </div>
+        
+        <!-- Последние фотоотчеты -->
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold text-gray-900">Последние фотоотчеты</h2>
+                <a href="{{ url_for('user.photos', object_id=object.id) }}" class="text-sm text-blue-500 hover:text-blue-700">Все фотоотчеты →</a>
+            </div>
+            
+            {% if recent_photos %}
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {% for photo in recent_photos %}
+                <div class="rounded-lg overflow-hidden border border-gray-200">
+                    <a href="{{ url_for('user.photos', object_id=object.id) }}#photo-{{ photo.id }}">
+                        <img src="{{ photo.thumbnail }}" alt="{{ photo.title }}" class="w-full h-32 object-cover">
+                        <div class="p-3 bg-white">
+                            <h3 class="text-xs font-medium text-gray-900 truncate">{{ photo.title }}</h3>
+                            <p class="text-xs text-gray-500 mt-1">{{ photo.date }}</p>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="text-center py-8">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <h3 class="mt-2 text-sm font-medium text-gray-900">Нет фотоотчетов</h3>
+                <p class="mt-1 text-sm text-gray-500">Фотоотчеты по данному объекту отсутствуют.</p>
+                <div class="mt-6">
+                    <a href="{{ url_for('user.photos', object_id=object.id) }}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                        Создать фотоотчет
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Боковая информация -->
+    <div class="space-y-6">
+        <!-- Участники проекта -->
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Участники проекта</h2>
+            
+            <div class="space-y-4">
+                {% for member in team_members %}
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        {% if member.avatar %}
+                        <img src="{{ member.avatar }}" alt="{{ member.name }}" class="h-10 w-10 rounded-full">
+                        {% else %}
+                        <div class="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm font-medium">
+                            {{ member.initials }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-gray-900">{{ member.name }}</p>
+                        <p class="text-xs text-gray-500">{{ member.role }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Ключевые документы -->
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold text-gray-900">Ключевые документы</h2>
+                <a href="{{ url_for('user.documents', object_id=object.id) }}" class="text-sm text-blue-500 hover:text-blue-700">Все документы →</a>
+            </div>
+            
+            <div class="space-y-3">
+                {% for doc in key_documents %}
+                <a href="{{ url_for('user.documents', object_id=object.id) }}#doc-{{ doc.id }}" class="block p-3 border border-gray-200 rounded-lg hover:border-blue-300 transition-colors">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <div class="rounded bg-gray-100 p-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="ml-3 flex-1">
+                            <h3 class="text-sm font-medium text-gray-900">{{ doc.title }}</h3>
+                            <p class="text-xs text-gray-500 mt-1">{{ doc.type }} • {{ doc.date }}</p>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Предстоящие задачи -->
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Предстоящие задачи</h2>
+            
+            <div class="space-y-3">
+                {% for task in upcoming_tasks %}
+                <div class="p-3 border-l-4 rounded-r-lg bg-gray-50
+                    {% if task.priority == 'high' %}
+                        border-red-500
+                    {% elif task.priority == 'medium' %}
+                        border-yellow-500
+                    {% else %}
+                        border-green-500
+                    {% endif %}">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-sm font-medium text-gray-900">{{ task.title }}</h3>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                            {% if task.deadline == 'Сегодня' %}
+                                bg-red-100 text-red-800
+                            {% elif task.deadline == 'Завтра' %}
+                                bg-yellow-100 text-yellow-800
+                            {% else %}
+                                bg-blue-100 text-blue-800
+                            {% endif %}">
+                            {{ task.deadline }}
+                        </span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">{{ task.assigned_to }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Недавняя активность -->
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Недавняя активность</h2>
+            
+            <div class="flow-root">
+                <ul class="-mb-8">
+                    {% for activity in recent_activities %}
+                    <li>
+                        <div class="relative pb-8">
+                            {% if not loop.last %}
+                            <span class="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            {% endif %}
+                            <div class="relative flex items-start space-x-3">
+                                <div class="relative">
+                                    <div class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center ring-8 ring-white">
+                                        {% if activity.type == 'document' %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                        </svg>
+                                        {% elif activity.type == 'photo' %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        {% elif activity.type == 'message' %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                                        </svg>
+                                        {% elif activity.type == 'task' %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                        </svg>
+                                        {% else %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">
+                                            {{ activity.user }}
+                                            <span class="text-gray-500 font-normal"> {{ activity.action }}</span>
+                                        </div>
+                                        <p class="mt-0.5 text-xs text-gray-500">{{ activity.time }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

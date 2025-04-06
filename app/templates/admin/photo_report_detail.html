@@ -1,0 +1,278 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Фотоотчет: {{ report.title }} | Mastodontco Admin{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <div class="flex flex-wrap justify-between items-center">
+        <div>
+            <div class="text-sm text-gray-500 mb-1">
+                <a href="{{ url_for('admin.photos') }}" class="hover:text-blue-500">Фотоотчеты</a> / 
+                <span>{{ report.title }}</span>
+            </div>
+            <h1 class="text-2xl font-semibold text-gray-800">{{ report.title }}</h1>
+            <p class="text-gray-600 text-sm mt-1">{{ report.object_name }}</p>
+        </div>
+        <div class="flex space-x-3">
+            <a href="{{ url_for('admin.photos') }}" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium flex items-center">
+                <span class="mr-2">←</span> Назад к отчетам
+            </a>
+            
+            {% if report.status == 'pending' %}
+            <button id="approveButton" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Подтвердить
+            </button>
+            <button id="rejectButton" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                Отклонить
+            </button>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Статус и информация об отчете -->
+    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+                <div class="text-sm text-gray-500 mb-1">Статус</div>
+                <div class="flex items-center">
+                    <span class="px-2 py-1 text-xs font-semibold rounded-full 
+                        {% if report.status == 'pending' %}
+                            bg-yellow-100 text-yellow-800
+                        {% elif report.status == 'approved' %}
+                            bg-green-100 text-green-800
+                        {% elif report.status == 'rejected' %}
+                            bg-red-100 text-red-800
+                        {% endif %}">
+                        {{ report.status_display }}
+                    </span>
+                </div>
+            </div>
+            <div>
+                <div class="text-sm text-gray-500 mb-1">Автор</div>
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 h-6 w-6 rounded-full overflow-hidden bg-gray-200 mr-2">
+                        {% if report.author.avatar %}
+                        <img src="{{ report.author.avatar }}" alt="{{ report.author.name }}" class="h-6 w-6 object-cover">
+                        {% else %}
+                        <div class="h-6 w-6 flex items-center justify-center bg-blue-500 text-white text-xs">
+                            {{ report.author.initials }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <span class="text-sm">{{ report.author.name }}</span>
+                </div>
+            </div>
+            <div>
+                <div class="text-sm text-gray-500 mb-1">Дата отчета</div>
+                <div class="text-sm font-medium">{{ report.date }}</div>
+            </div>
+            <div>
+                <div class="text-sm text-gray-500 mb-1">Количество фото</div>
+                <div class="text-sm font-medium">{{ report.photos_count }}</div>
+            </div>
+        </div>
+        
+        {% if report.status == 'approved' and report.approved_by %}
+        <div class="mt-4 pt-4 border-t border-gray-100">
+            <div class="flex items-start">
+                <div class="flex-shrink-0 h-6 w-6 rounded-full overflow-hidden bg-gray-200 mr-2 mt-1">
+                    {% if report.approved_by.avatar %}
+                    <img src="{{ report.approved_by.avatar }}" alt="{{ report.approved_by.name }}" class="h-6 w-6 object-cover">
+                    {% else %}
+                    <div class="h-6 w-6 flex items-center justify-center bg-green-500 text-white text-xs">
+                        {{ report.approved_by.initials }}
+                    </div>
+                    {% endif %}
+                </div>
+                <div>
+                    <div class="flex items-center">
+                        <span class="text-sm font-medium">{{ report.approved_by.name }}</span>
+                        <span class="ml-2 text-xs text-gray-500">{{ report.approved_at }}</span>
+                    </div>
+                    <div class="text-sm text-gray-600 mt-1 px-3 py-2 bg-green-50 rounded-lg">
+                        {{ report.approval_comment }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if report.status == 'rejected' and report.rejected_by %}
+        <div class="mt-4 pt-4 border-t border-gray-100">
+            <div class="flex items-start">
+                <div class="flex-shrink-0 h-6 w-6 rounded-full overflow-hidden bg-gray-200 mr-2 mt-1">
+                    {% if report.rejected_by.avatar %}
+                    <img src="{{ report.rejected_by.avatar }}" alt="{{ report.rejected_by.name }}" class="h-6 w-6 object-cover">
+                    {% else %}
+                    <div class="h-6 w-6 flex items-center justify-center bg-red-500 text-white text-xs">
+                        {{ report.rejected_by.initials }}
+                    </div>
+                    {% endif %}
+                </div>
+                <div>
+                    <div class="flex items-center">
+                        <span class="text-sm font-medium">{{ report.rejected_by.name }}</span>
+                        <span class="ml-2 text-xs text-gray-500">{{ report.rejected_at }}</span>
+                    </div>
+                    <div class="text-sm text-gray-600 mt-1 px-3 py-2 bg-red-50 rounded-lg">
+                        {{ report.rejection_reason }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Описание отчета -->
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">Описание</h2>
+        <p class="text-gray-700">{{ report.description }}</p>
+    </div>
+    
+    <!-- Фотографии -->
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">Фотографии ({{ report.photos_count }})</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for photo in report.photos %}
+            <div class="bg-gray-100 rounded-lg overflow-hidden">
+                <div class="aspect-w-16 aspect-h-9 bg-gray-200">
+                    {% if photo.url %}
+                    <img src="{{ photo.url }}" alt="Фото {{ loop.index }}" class="w-full h-full object-cover">
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center bg-gray-300 text-gray-500">
+                        <span class="text-4xl">📷</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="p-3">
+                    <p class="text-sm text-gray-700">{{ photo.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно подтверждения отчета -->
+<div id="approveModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-medium text-gray-900">Подтверждение фотоотчета</h3>
+            <button type="button" class="text-gray-400 hover:text-gray-500" onclick="closeApproveModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <form action="{{ url_for('admin.approve_photo_report', report_id=report.id) }}" method="post">
+            <div class="space-y-4">
+                <p class="text-gray-600">Вы уверены, что хотите подтвердить данный фотоотчет?</p>
+                <div>
+                    <label for="comment" class="block text-sm font-medium text-gray-700">Комментарий (необязательно)</label>
+                    <textarea id="comment" name="comment" rows="3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
+                </div>
+            </div>
+            <div class="mt-5 flex justify-end">
+                <button type="button" class="mr-3 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md" onclick="closeApproveModal()">
+                    Отмена
+                </button>
+                <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-md">
+                    Подтвердить
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Модальное окно отклонения отчета -->
+<div id="rejectModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-medium text-gray-900">Отклонение фотоотчета</h3>
+            <button type="button" class="text-gray-400 hover:text-gray-500" onclick="closeRejectModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <form action="{{ url_for('admin.reject_photo_report', report_id=report.id) }}" method="post">
+            <div class="space-y-4">
+                <p class="text-gray-600">Вы уверены, что хотите отклонить данный фотоотчет?</p>
+                <div>
+                    <label for="rejection_reason" class="block text-sm font-medium text-gray-700">Причина отклонения <span class="text-red-500">*</span></label>
+                    <textarea id="rejection_reason" name="rejection_reason" rows="3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required></textarea>
+                </div>
+            </div>
+            <div class="mt-5 flex justify-end">
+                <button type="button" class="mr-3 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md" onclick="closeRejectModal()">
+                    Отмена
+                </button>
+                <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md">
+                    Отклонить
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Страница детального просмотра фотоотчета загружена');
+        
+        // Обработчики для кнопок подтверждения/отклонения
+        const approveButton = document.getElementById('approveButton');
+        const rejectButton = document.getElementById('rejectButton');
+        const approveModal = document.getElementById('approveModal');
+        const rejectModal = document.getElementById('rejectModal');
+        
+        if (approveButton) {
+            approveButton.addEventListener('click', function() {
+                approveModal.classList.remove('hidden');
+            });
+        }
+        
+        if (rejectButton) {
+            rejectButton.addEventListener('click', function() {
+                rejectModal.classList.remove('hidden');
+            });
+        }
+        
+        // Функции для закрытия модальных окон
+        window.closeApproveModal = function() {
+            approveModal.classList.add('hidden');
+        }
+        
+        window.closeRejectModal = function() {
+            rejectModal.classList.add('hidden');
+        }
+        
+        // Добавляем стили для aspect-ratio, если они не поддерживаются браузером
+        if (!CSS.supports('aspect-ratio', '16/9')) {
+            const aspectElements = document.querySelectorAll('.aspect-w-16.aspect-h-9');
+            aspectElements.forEach(element => {
+                element.style.position = 'relative';
+                element.style.paddingBottom = '56.25%'; // 9/16 * 100%
+                
+                const child = element.firstElementChild;
+                if (child) {
+                    child.style.position = 'absolute';
+                    child.style.top = '0';
+                    child.style.left = '0';
+                    child.style.width = '100%';
+                    child.style.height = '100%';
+                }
+            });
+        }
+    });
+</script>
+{% endblock %} 

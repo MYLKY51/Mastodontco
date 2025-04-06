@@ -1,0 +1,41 @@
+# Виртуальное окружение
+venv/
+env/
+ENV/
+
+# Кэш Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Файлы базы данных
+instance/
+*.sqlite
+*.db
+
+# Логи и временные файлы
+logs/
+*.log
+*.swp
+.DS_Store
+Thumbs.db
+
+# Настройки IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Среда разработки
+.env
+.flaskenv
+.coverage
+htmlcov/
+
+# Парсинг и компиляция
+node_modules/
+dist/
+build/
+*.egg-info/ 
