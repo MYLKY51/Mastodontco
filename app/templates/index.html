@@ -1,34 +1,276 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mastodontco</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>ООО Кольский Мастодонт - Портал сотрудников</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.32.0/tabler-icons.min.css">
 </head>
-<body>
-    <header>
-        <h1>Добро пожаловать в Mastodontco</h1>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('main.index') }}">Главная</a></li>
-                <li><a href="{{ url_for('auth.login') }}">Вход</a></li>
-                <li><a href="{{ url_for('auth.register') }}">Регистрация</a></li>
+<body class="min-h-screen bg-base-300">
+    <!-- Навигационная панель -->
+    <div class="navbar bg-base-200 shadow-lg">
+        <div class="navbar-start">
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                    <i class="ti ti-menu-2 text-xl"></i>
+                </div>
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52">
+                    <li><a href="{{ url_for('main.index') }}" class="flex items-center gap-2"><i class="ti ti-home"></i>Главная</a></li>
+                    <li><a href="#" class="flex items-center gap-2"><i class="ti ti-file-report"></i>Мои отчеты</a></li>
+                    <li><a href="#" class="flex items-center gap-2"><i class="ti ti-building"></i>Мои объекты</a></li>
+                    <li><a href="#" class="flex items-center gap-2"><i class="ti ti-files"></i>Документация</a></li>
+                </ul>
+            </div>
+            <a class="btn btn-ghost text-xl normal-case flex items-center">
+                <i class="ti ti-building-skyscraper text-primary text-2xl mr-2"></i>
+                <span>Кольский Мастодонт</span>
+            </a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1">
+                <li><a href="{{ url_for('main.index') }}" class="flex items-center gap-2"><i class="ti ti-home"></i>Главная</a></li>
+                <li><a href="#" class="flex items-center gap-2"><i class="ti ti-file-report"></i>Мои отчеты</a></li>
+                <li><a href="#" class="flex items-center gap-2"><i class="ti ti-building"></i>Мои объекты</a></li>
+                <li><a href="#" class="flex items-center gap-2"><i class="ti ti-files"></i>Документация</a></li>
             </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <section>
-            <h2>О проекте</h2>
-            <p>Mastodontco - это веб-приложение на Flask.</p>
-        </section>
+        </div>
+        <div class="navbar-end">
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                    <div class="w-10 rounded-full">
+                        <img alt="Аватар пользователя" src="https://ui-avatars.com/api/?name=User&background=3D4451&color=fff" />
+                    </div>
+                </div>
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52">
+                    <li><a href="{{ url_for('auth.login') }}" class="flex items-center gap-2"><i class="ti ti-user"></i>Профиль</a></li>
+                    <li><a href="{{ url_for('auth.login') }}" class="flex items-center gap-2"><i class="ti ti-settings"></i>Настройки</a></li>
+                    <li><a href="{{ url_for('auth.login') }}" class="flex items-center gap-2"><i class="ti ti-logout"></i>Выйти</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Основное содержимое -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Статистика -->
+        <div class="stats shadow mb-8 w-full bg-base-200">
+            <div class="stat">
+                <div class="stat-figure text-primary">
+                    <i class="ti ti-building text-3xl"></i>
+                </div>
+                <div class="stat-title">Активные объекты</div>
+                <div class="stat-value">5</div>
+                <div class="stat-desc">За последние 30 дней</div>
+            </div>
+            
+            <div class="stat">
+                <div class="stat-figure text-secondary">
+                    <i class="ti ti-file-report text-3xl"></i>
+                </div>
+                <div class="stat-title">Отправленные отчеты</div>
+                <div class="stat-value">12</div>
+                <div class="stat-desc">↗︎ +3 (15%)</div>
+            </div>
+            
+            <div class="stat">
+                <div class="stat-figure text-accent">
+                    <i class="ti ti-file-check text-3xl"></i>
+                </div>
+                <div class="stat-title">Выполненные задачи</div>
+                <div class="stat-value">89%</div>
+                <div class="stat-desc">↗︎ +10% (с прошлого месяца)</div>
+            </div>
+        </div>
+
+        <!-- Карточки -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Фотоотчеты -->
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title text-primary">
+                        <i class="ti ti-camera text-2xl"></i>
+                        Фотоотчеты
+                    </h2>
+                    <p>Загрузите фотографии с объектов для отчетности</p>
+                    <div class="card-actions justify-end">
+                        <button class="btn btn-primary">
+                            <i class="ti ti-upload"></i>
+                            Загрузить
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Текстовые отчеты -->
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title text-secondary">
+                        <i class="ti ti-file-text text-2xl"></i>
+                        Текстовые отчеты
+                    </h2>
+                    <p>Заполните форму отчета о проделанной работе</p>
+                    <div class="card-actions justify-end">
+                        <button class="btn btn-secondary">
+                            <i class="ti ti-pencil"></i>
+                            Создать
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Документация -->
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title text-accent">
+                        <i class="ti ti-file-description text-2xl"></i>
+                        Документация
+                    </h2>
+                    <p>Доступ к технической и юридической документации</p>
+                    <div class="card-actions justify-end">
+                        <button class="btn btn-accent">
+                            <i class="ti ti-folder"></i>
+                            Открыть
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Таблица объектов -->
+        <div class="card bg-base-200 shadow-xl mb-8">
+            <div class="card-body">
+                <h2 class="card-title text-xl mb-4">
+                    <i class="ti ti-building-community text-2xl mr-2"></i>
+                    Мои объекты
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Название</th>
+                                <th>Адрес</th>
+                                <th>Статус</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>1</th>
+                                <td>ЖК "Полярная звезда"</td>
+                                <td>г. Мурманск, ул. Ленина, 45</td>
+                                <td><div class="badge badge-success">Активный</div></td>
+                                <td>
+                                    <div class="flex gap-2">
+                                        <button class="btn btn-xs btn-outline btn-primary"><i class="ti ti-eye"></i></button>
+                                        <button class="btn btn-xs btn-outline btn-secondary"><i class="ti ti-file-upload"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>2</th>
+                                <td>Офисный центр "Арктика"</td>
+                                <td>г. Мурманск, пр. Кольский, 110</td>
+                                <td><div class="badge badge-success">Активный</div></td>
+                                <td>
+                                    <div class="flex gap-2">
+                                        <button class="btn btn-xs btn-outline btn-primary"><i class="ti ti-eye"></i></button>
+                                        <button class="btn btn-xs btn-outline btn-secondary"><i class="ti ti-file-upload"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>3</th>
+                                <td>ТРЦ "Северное сияние"</td>
+                                <td>г. Мурманск, ул. Полярные Зори, 62</td>
+                                <td><div class="badge badge-warning">На паузе</div></td>
+                                <td>
+                                    <div class="flex gap-2">
+                                        <button class="btn btn-xs btn-outline btn-primary"><i class="ti ti-eye"></i></button>
+                                        <button class="btn btn-xs btn-outline btn-secondary"><i class="ti ti-file-upload"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>4</th>
+                                <td>Гостиница "Заполярье"</td>
+                                <td>г. Мурманск, ул. Книповича, 17</td>
+                                <td><div class="badge badge-success">Активный</div></td>
+                                <td>
+                                    <div class="flex gap-2">
+                                        <button class="btn btn-xs btn-outline btn-primary"><i class="ti ti-eye"></i></button>
+                                        <button class="btn btn-xs btn-outline btn-secondary"><i class="ti ti-file-upload"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>5</th>
+                                <td>Промышленный комплекс "Норд"</td>
+                                <td>Мурманская обл., г. Североморск</td>
+                                <td><div class="badge badge-success">Активный</div></td>
+                                <td>
+                                    <div class="flex gap-2">
+                                        <button class="btn btn-xs btn-outline btn-primary"><i class="ti ti-eye"></i></button>
+                                        <button class="btn btn-xs btn-outline btn-secondary"><i class="ti ti-file-upload"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Уведомления -->
+        <div class="card bg-base-200 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title text-xl mb-4">
+                    <i class="ti ti-bell text-2xl mr-2"></i>
+                    Последние уведомления
+                </h2>
+                <div class="space-y-4">
+                    <div class="alert alert-info">
+                        <i class="ti ti-info-circle"></i>
+                        <span>Добавлена новая документация для объекта "ЖК Полярная звезда"</span>
+                    </div>
+                    <div class="alert alert-success">
+                        <i class="ti ti-check"></i>
+                        <span>Ваш отчет по объекту "Офисный центр Арктика" принят</span>
+                    </div>
+                    <div class="alert alert-warning">
+                        <i class="ti ti-alert-triangle"></i>
+                        <span>Напоминание: отправьте фотоотчет по объекту "ТРЦ Северное сияние" до 25.04.2025</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
-    
-    <footer>
-        <p>&copy; 2025 Mastodontco</p>
+
+    <!-- Подвал -->
+    <footer class="footer footer-center p-10 bg-base-200 text-base-content mt-8">
+        <div>
+            <div class="grid grid-flow-col gap-4">
+                <a class="link link-hover">О компании</a> 
+                <a class="link link-hover">Контакты</a> 
+                <a class="link link-hover">Поддержка</a> 
+                <a class="link link-hover">Политика конфиденциальности</a>
+            </div>
+            <p class="mt-4">&copy; 2025 ООО "Кольский Мастодонт" - Все права защищены</p>
+        </div>
     </footer>
     
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {}
+            },
+            daisyui: {
+                themes: ["dark"]
+            }
+        }
+    </script>
 </body>
 </html> 
