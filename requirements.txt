@@ -1,6 +1,10 @@
-flask
-werkzeug
-jinja2
-click
-itsdangerous
-markupsafe
+Flask
+Flask-SQLAlchemy
+Flask-Login
+Flask-WTF
+Flask-Migrate
+python-dotenv
+email-validator
+Werkzeug
+SQLAlchemy
+pytest
