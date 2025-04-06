@@ -1,52 +1,138 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Регистрация - Mastodontco</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Регистрация - ООО Кольский Мастодонт</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.32.0/tabler-icons.min.css">
 </head>
-<body>
-    <header>
-        <h1>Регистрация в Mastodontco</h1>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('main.index') }}">Главная</a></li>
-                <li><a href="{{ url_for('auth.login') }}">Вход</a></li>
-                <li><a href="{{ url_for('auth.register') }}">Регистрация</a></li>
+<body class="min-h-screen bg-base-300 flex flex-col">
+    <!-- Навигационная панель -->
+    <div class="navbar bg-base-200 shadow-lg">
+        <div class="navbar-start">
+            <a href="{{ url_for('main.index') }}" class="btn btn-ghost text-xl normal-case flex items-center">
+                <i class="ti ti-building-skyscraper text-primary text-2xl mr-2"></i>
+                <span>Кольский Мастодонт</span>
+            </a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1">
+                <li><a href="{{ url_for('main.index') }}" class="flex items-center gap-2"><i class="ti ti-home"></i>Главная</a></li>
+                <li><a href="{{ url_for('auth.login') }}" class="flex items-center gap-2"><i class="ti ti-login"></i>Вход</a></li>
+                <li><a href="{{ url_for('auth.register') }}" class="flex items-center gap-2 active"><i class="ti ti-user-plus"></i>Регистрация</a></li>
             </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <section class="auth-form">
-            <h2>Создание аккаунта</h2>
-            <form action="" method="post">
-                <div class="form-group">
-                    <label for="username">Имя пользователя:</label>
-                    <input type="text" id="username" name="username" required>
+        </div>
+        <div class="navbar-end">
+            <a href="{{ url_for('auth.login') }}" class="btn btn-outline">
+                <i class="ti ti-login mr-2"></i>
+                У меня есть аккаунт
+            </a>
+        </div>
+    </div>
+
+    <!-- Основное содержимое -->
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        <div class="card bg-base-200 shadow-xl w-full max-w-xl mx-auto">
+            <div class="card-body">
+                <h2 class="card-title text-2xl mb-6 flex items-center justify-center">
+                    <i class="ti ti-user-plus text-primary text-3xl mr-2"></i>
+                    Создание учетной записи
+                </h2>
+                
+                <form action="" method="post">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text flex items-center">
+                                    <i class="ti ti-user mr-2"></i>Имя пользователя
+                                </span>
+                            </label>
+                            <input type="text" id="username" name="username" 
+                                class="input input-bordered w-full" required />
+                        </div>
+                        
+                        <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text flex items-center">
+                                    <i class="ti ti-mail mr-2"></i>Email
+                                </span>
+                            </label>
+                            <input type="email" id="email" name="email" 
+                                class="input input-bordered w-full" required />
+                        </div>
+                        
+                        <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text flex items-center">
+                                    <i class="ti ti-lock mr-2"></i>Пароль
+                                </span>
+                            </label>
+                            <input type="password" id="password" name="password" 
+                                class="input input-bordered w-full" required />
+                        </div>
+                        
+                        <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text flex items-center">
+                                    <i class="ti ti-lock-check mr-2"></i>Подтверждение пароля
+                                </span>
+                            </label>
+                            <input type="password" id="password2" name="password2" 
+                                class="input input-bordered w-full" required />
+                        </div>
+                        
+                        <div class="form-control w-full md:col-span-2">
+                            <label class="label cursor-pointer justify-start gap-3">
+                                <input type="checkbox" class="checkbox checkbox-primary" required />
+                                <span class="label-text">Я согласен с <a href="#" class="link link-primary">условиями использования</a> и <a href="#" class="link link-primary">политикой конфиденциальности</a></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-control mt-6">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="ti ti-user-plus mr-2"></i>
+                            Зарегистрироваться
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="divider my-6">или</div>
+                
+                <div class="flex flex-col space-y-3">
+                    <button class="btn btn-outline">
+                        <i class="ti ti-brand-google mr-2"></i>
+                        Регистрация через Google
+                    </button>
                 </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+                
+                <div class="text-center mt-6">
+                    <p>Уже есть аккаунт? 
+                        <a href="{{ url_for('auth.login') }}" class="link link-primary">Войти</a>
+                    </p>
                 </div>
-                <div class="form-group">
-                    <label for="password">Пароль:</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <div class="form-group">
-                    <label for="password2">Подтверждение пароля:</label>
-                    <input type="password" id="password2" name="password2" required>
-                </div>
-                <div class="form-group">
-                    <button type="submit">Зарегистрироваться</button>
-                </div>
-            </form>
-        </section>
+            </div>
+        </div>
     </main>
-    
-    <footer>
-        <p>&copy; 2025 Mastodontco</p>
+
+    <!-- Подвал -->
+    <footer class="footer footer-center p-4 bg-base-200 text-base-content">
+        <div>
+            <p>&copy; 2025 ООО "Кольский Мастодонт" - Все права защищены</p>
+        </div>
     </footer>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {}
+            },
+            daisyui: {
+                themes: ["dark"]
+            }
+        }
+    </script>
 </body>
 </html> 

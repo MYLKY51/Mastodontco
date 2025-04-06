@@ -18,9 +18,9 @@
                 </div>
                 <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52">
                     <li><a href="{{ url_for('main.index') }}" class="flex items-center gap-2"><i class="ti ti-home"></i>Главная</a></li>
-                    <li><a href="#" class="flex items-center gap-2"><i class="ti ti-file-report"></i>Мои отчеты</a></li>
-                    <li><a href="#" class="flex items-center gap-2"><i class="ti ti-building"></i>Мои объекты</a></li>
-                    <li><a href="#" class="flex items-center gap-2"><i class="ti ti-files"></i>Документация</a></li>
+                    <li><a href="#features" class="flex items-center gap-2"><i class="ti ti-star"></i>Возможности</a></li>
+                    <li><a href="#about" class="flex items-center gap-2"><i class="ti ti-info-circle"></i>О компании</a></li>
+                    <li><a href="#contact" class="flex items-center gap-2"><i class="ti ti-mail"></i>Контакты</a></li>
                 </ul>
             </div>
             <a class="btn btn-ghost text-xl normal-case flex items-center">
@@ -31,233 +31,574 @@
         <div class="navbar-center hidden lg:flex">
             <ul class="menu menu-horizontal px-1">
                 <li><a href="{{ url_for('main.index') }}" class="flex items-center gap-2"><i class="ti ti-home"></i>Главная</a></li>
-                <li><a href="#" class="flex items-center gap-2"><i class="ti ti-file-report"></i>Мои отчеты</a></li>
-                <li><a href="#" class="flex items-center gap-2"><i class="ti ti-building"></i>Мои объекты</a></li>
-                <li><a href="#" class="flex items-center gap-2"><i class="ti ti-files"></i>Документация</a></li>
+                <li><a href="#features" class="flex items-center gap-2"><i class="ti ti-star"></i>Возможности</a></li>
+                <li><a href="#about" class="flex items-center gap-2"><i class="ti ti-info-circle"></i>О компании</a></li>
+                <li><a href="#contact" class="flex items-center gap-2"><i class="ti ti-mail"></i>Контакты</a></li>
             </ul>
         </div>
         <div class="navbar-end">
-            <div class="dropdown dropdown-end">
-                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-                    <div class="w-10 rounded-full">
-                        <img alt="Аватар пользователя" src="https://ui-avatars.com/api/?name=User&background=3D4451&color=fff" />
-                    </div>
+            <a href="{{ url_for('auth.login') }}" class="btn btn-outline btn-primary mr-2">
+                <i class="ti ti-login mr-1"></i>
+                Вход
+            </a>
+            <a href="{{ url_for('auth.register') }}" class="btn btn-primary">
+                <i class="ti ti-user-plus mr-1"></i>
+                Регистрация
+            </a>
+        </div>
+    </div>
+
+    <!-- Герой-секция -->
+    <div class="hero min-h-[80vh] bg-base-200 bg-opacity-90" style="background-image: url('https://images.unsplash.com/photo-1507207611509-ec012433ff52?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80'); background-blend-mode: overlay;">
+        <div class="hero-content text-center">
+            <div class="max-w-3xl">
+                <h1 class="text-5xl font-bold mb-8">Корпоративный портал<br />ООО "Кольский Мастодонт"</h1>
+                <p class="text-xl mb-8">Единая цифровая среда для обмена данными, отчетами и документацией между сотрудниками компании. Оптимизируйте рабочие процессы и повышайте продуктивность с нашей интегрированной системой.</p>
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg">
+                        <i class="ti ti-login mr-2"></i>
+                        Войти в систему
+                    </a>
+                    <a href="#features" class="btn btn-outline btn-lg">
+                        <i class="ti ti-arrow-down mr-2"></i>
+                        Узнать больше
+                    </a>
                 </div>
-                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52">
-                    <li><a href="{{ url_for('auth.login') }}" class="flex items-center gap-2"><i class="ti ti-user"></i>Профиль</a></li>
-                    <li><a href="{{ url_for('auth.login') }}" class="flex items-center gap-2"><i class="ti ti-settings"></i>Настройки</a></li>
-                    <li><a href="{{ url_for('auth.login') }}" class="flex items-center gap-2"><i class="ti ti-logout"></i>Выйти</a></li>
-                </ul>
             </div>
         </div>
     </div>
 
     <!-- Основное содержимое -->
-    <main class="container mx-auto px-4 py-8">
-        <!-- Статистика -->
-        <div class="stats shadow mb-8 w-full bg-base-200">
+    <main class="container mx-auto px-4 py-12">
+        <!-- Счетчики -->
+        <div class="stats shadow mb-16 w-full bg-base-200">
             <div class="stat">
                 <div class="stat-figure text-primary">
-                    <i class="ti ti-building text-3xl"></i>
+                    <i class="ti ti-building text-4xl"></i>
                 </div>
-                <div class="stat-title">Активные объекты</div>
-                <div class="stat-value">5</div>
-                <div class="stat-desc">За последние 30 дней</div>
+                <div class="stat-title">Активных объектов</div>
+                <div class="stat-value">35+</div>
+                <div class="stat-desc">По всей Мурманской области</div>
             </div>
             
             <div class="stat">
                 <div class="stat-figure text-secondary">
-                    <i class="ti ti-file-report text-3xl"></i>
+                    <i class="ti ti-users text-4xl"></i>
                 </div>
-                <div class="stat-title">Отправленные отчеты</div>
-                <div class="stat-value">12</div>
-                <div class="stat-desc">↗︎ +3 (15%)</div>
+                <div class="stat-title">Сотрудников</div>
+                <div class="stat-value">250+</div>
+                <div class="stat-desc">Профессионалов своего дела</div>
             </div>
             
             <div class="stat">
                 <div class="stat-figure text-accent">
-                    <i class="ti ti-file-check text-3xl"></i>
+                    <i class="ti ti-calendar text-4xl"></i>
                 </div>
-                <div class="stat-title">Выполненные задачи</div>
-                <div class="stat-value">89%</div>
-                <div class="stat-desc">↗︎ +10% (с прошлого месяца)</div>
+                <div class="stat-title">Лет на рынке</div>
+                <div class="stat-value">15</div>
+                <div class="stat-desc">Стабильного развития</div>
             </div>
         </div>
 
-        <!-- Карточки -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            <!-- Фотоотчеты -->
-            <div class="card bg-base-200 shadow-xl">
-                <div class="card-body">
-                    <h2 class="card-title text-primary">
-                        <i class="ti ti-camera text-2xl"></i>
-                        Фотоотчеты
-                    </h2>
-                    <p>Загрузите фотографии с объектов для отчетности</p>
-                    <div class="card-actions justify-end">
-                        <button class="btn btn-primary">
-                            <i class="ti ti-upload"></i>
-                            Загрузить
-                        </button>
+        <!-- Возможности портала -->
+        <section id="features" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">Возможности портала</h2>
+                <p class="text-xl max-w-3xl mx-auto">Наш корпоративный портал предоставляет широкий спектр функций для эффективной работы и коммуникации внутри компании.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Фотоотчеты -->
+                <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all">
+                    <figure class="pt-6">
+                        <i class="ti ti-camera text-6xl text-primary"></i>
+                    </figure>
+                    <div class="card-body">
+                        <h3 class="card-title text-2xl justify-center">Фотоотчеты</h3>
+                        <p class="text-center">Быстрая загрузка фотографий с объектов для визуальной отчетности. Автоматическая сортировка по проектам и датам.</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Мгновенная загрузка фото</li>
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Автоматическая геолокация</li>
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Привязка к объектам</li>
+                        </ul>
                     </div>
                 </div>
+                
+                <!-- Текстовые отчеты -->
+                <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all">
+                    <figure class="pt-6">
+                        <i class="ti ti-file-text text-6xl text-secondary"></i>
+                    </figure>
+                    <div class="card-body">
+                        <h3 class="card-title text-2xl justify-center">Текстовые отчеты</h3>
+                        <p class="text-center">Структурированные формы для отчетов о проделанной работе. Автоматическое формирование еженедельных и ежемесячных сводок.</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Удобные шаблоны</li>
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Автоматические напоминания</li>
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Аналитика и статистика</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Документация -->
+                <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all">
+                    <figure class="pt-6">
+                        <i class="ti ti-file-description text-6xl text-accent"></i>
+                    </figure>
+                    <div class="card-body">
+                        <h3 class="card-title text-2xl justify-center">Документация</h3>
+                        <p class="text-center">Централизованный доступ к технической, юридической и проектной документации компании. Удобный поиск и версионность.</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Полнотекстовый поиск</li>
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Контроль версий</li>
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Защищенный доступ</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Управление объектами -->
+                <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all">
+                    <figure class="pt-6">
+                        <i class="ti ti-building-community text-6xl text-primary"></i>
+                    </figure>
+                    <div class="card-body">
+                        <h3 class="card-title text-2xl justify-center">Управление объектами</h3>
+                        <p class="text-center">Полная информация по всем объектам компании. Статусы выполнения работ, ответственные лица и оперативные задачи.</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Карточка объекта</li>
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Отслеживание статусов</li>
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Календарь работ</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Уведомления -->
+                <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all">
+                    <figure class="pt-6">
+                        <i class="ti ti-bell text-6xl text-secondary"></i>
+                    </figure>
+                    <div class="card-body">
+                        <h3 class="card-title text-2xl justify-center">Уведомления</h3>
+                        <p class="text-center">Автоматические оповещения о важных событиях, сроках и задачах. Система приоритизации и персонализации сообщений.</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Мгновенные уведомления</li>
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Email-оповещения</li>
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Настройка приоритетов</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Мобильный доступ -->
+                <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all">
+                    <figure class="pt-6">
+                        <i class="ti ti-device-mobile text-6xl text-accent"></i>
+                    </figure>
+                    <div class="card-body">
+                        <h3 class="card-title text-2xl justify-center">Мобильный доступ</h3>
+                        <p class="text-center">Полноценная работа с порталом через мобильные устройства. Удобный интерфейс и быстрый доступ к основным функциям.</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Адаптивный дизайн</li>
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Оффлайн-режим</li>
+                            <li class="flex items-center gap-2"><i class="ti ti-check text-success"></i> Фото с геометкой</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg">
+                    <i class="ti ti-user-plus mr-2"></i>
+                    Зарегистрироваться
+                </a>
+            </div>
+        </section>
+
+        <!-- О компании -->
+        <section id="about" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">О компании</h2>
+                <p class="text-xl max-w-3xl mx-auto">ООО "Кольский Мастодонт" — ведущая строительная компания Мурманской области с 15-летним опытом успешной работы.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div class="space-y-6">
+                    <div class="bg-base-200 p-6 rounded-box">
+                        <h3 class="text-2xl font-bold mb-3 flex items-center">
+                            <i class="ti ti-building text-primary text-3xl mr-3"></i>
+                            Наша миссия
+                        </h3>
+                        <p>Создавать современные, надежные и функциональные объекты инфраструктуры, которые повышают качество жизни людей в суровых условиях Крайнего Севера.</p>
+                    </div>
+                    
+                    <div class="bg-base-200 p-6 rounded-box">
+                        <h3 class="text-2xl font-bold mb-3 flex items-center">
+                            <i class="ti ti-award text-primary text-3xl mr-3"></i>
+                            Ценности компании
+                        </h3>
+                        <p>Ответственность, инновации, экологичность и забота о будущем региона. Мы строим не просто здания — мы создаем пространства для жизни и развития.</p>
+                    </div>
+                    
+                    <div class="bg-base-200 p-6 rounded-box">
+                        <h3 class="text-2xl font-bold mb-3 flex items-center">
+                            <i class="ti ti-users text-primary text-3xl mr-3"></i>
+                            Команда профессионалов
+                        </h3>
+                        <p>Наша команда — это более 250 высококвалифицированных специалистов с опытом работы в сложных климатических условиях Заполярья.</p>
+                    </div>
+                </div>
+                
+                <div class="relative h-[450px] rounded-box overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" 
+                        alt="Строительство в северных условиях" class="w-full h-full object-cover" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-base-300 to-transparent"></div>
+                    <div class="absolute bottom-0 p-8">
+                        <h3 class="text-2xl font-bold mb-3">Ключевые проекты</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2"><i class="ti ti-check-circle text-success"></i> ЖК "Полярная звезда"</li>
+                            <li class="flex items-center gap-2"><i class="ti ti-check-circle text-success"></i> Офисный центр "Арктика"</li>
+                            <li class="flex items-center gap-2"><i class="ti ti-check-circle text-success"></i> ТРЦ "Северное сияние"</li>
+                            <li class="flex items-center gap-2"><i class="ti ti-check-circle text-success"></i> Гостиница "Заполярье"</li>
+                            <li class="flex items-center gap-2"><i class="ti ti-check-circle text-success"></i> Промышленный комплекс "Норд"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Отзывы -->
+        <section class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">Отзывы сотрудников</h2>
+            </div>
+
+            <div class="carousel w-full">
+                <div id="slide1" class="carousel-item relative w-full flex justify-center">
+                    <div class="card bg-base-200 shadow-xl max-w-xl">
+                        <div class="card-body">
+                            <div class="flex justify-center mb-4">
+                                <div class="rating rating-lg">
+                                    <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
+                                    <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
+                                    <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
+                                    <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
+                                    <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
+                                </div>
+                            </div>
+                            <p class="text-xl italic text-center">"Корпоративный портал радикально изменил мою работу на объектах. Теперь я могу быстро отправлять фотоотчеты прямо с места, а вся необходимая документация всегда под рукой на телефоне."</p>
+                            <div class="flex items-center justify-center mt-6">
+                                <div class="avatar mr-4">
+                                    <div class="w-12 rounded-full">
+                                        <img src="https://ui-avatars.com/api/?name=Алексей+Морозов&background=3D4451&color=fff" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold">Алексей Морозов</h3>
+                                    <p class="text-sm opacity-70">Прораб, 5 лет в компании</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                        <a href="#slide3" class="btn btn-circle">❮</a> 
+                        <a href="#slide2" class="btn btn-circle">❯</a>
+                    </div>
+                </div> 
+                <div id="slide2" class="carousel-item relative w-full flex justify-center">
+                    <div class="card bg-base-200 shadow-xl max-w-xl">
+                        <div class="card-body">
+                            <div class="flex justify-center mb-4">
+                                <div class="rating rating-lg">
+                                    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked />
+                                    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked />
+                                    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked />
+                                    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked />
+                                    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+                                </div>
+                            </div>
+                            <p class="text-xl italic text-center">"Система уведомлений не дает пропустить важные сроки, а удобный доступ к документации экономит массу времени. Особенно ценю возможность быстро получать информацию по всем объектам."</p>
+                            <div class="flex items-center justify-center mt-6">
+                                <div class="avatar mr-4">
+                                    <div class="w-12 rounded-full">
+                                        <img src="https://ui-avatars.com/api/?name=Елена+Северная&background=3D4451&color=fff" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold">Елена Северная</h3>
+                                    <p class="text-sm opacity-70">Инженер-проектировщик, 3 года в компании</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                        <a href="#slide1" class="btn btn-circle">❮</a> 
+                        <a href="#slide3" class="btn btn-circle">❯</a>
+                    </div>
+                </div> 
+                <div id="slide3" class="carousel-item relative w-full flex justify-center">
+                    <div class="card bg-base-200 shadow-xl max-w-xl">
+                        <div class="card-body">
+                            <div class="flex justify-center mb-4">
+                                <div class="rating rating-lg">
+                                    <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" checked />
+                                    <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" checked />
+                                    <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" checked />
+                                    <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" checked />
+                                    <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" checked />
+                                </div>
+                            </div>
+                            <p class="text-xl italic text-center">"Как руководитель проектов, я высоко ценю аналитические возможности портала. Сводка по всем объектам, статусы работ и автоматические отчеты позволяют держать руку на пульсе."</p>
+                            <div class="flex items-center justify-center mt-6">
+                                <div class="avatar mr-4">
+                                    <div class="w-12 rounded-full">
+                                        <img src="https://ui-avatars.com/api/?name=Игорь+Полярный&background=3D4451&color=fff" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold">Игорь Полярный</h3>
+                                    <p class="text-sm opacity-70">Руководитель проектов, 7 лет в компании</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                        <a href="#slide2" class="btn btn-circle">❮</a> 
+                        <a href="#slide1" class="btn btn-circle">❯</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Контакты -->
+        <section id="contact" class="mb-12">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">Связаться с нами</h2>
+                <p class="text-xl max-w-3xl mx-auto">Есть вопросы по работе портала? Наша служба поддержки всегда готова помочь!</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="card bg-base-200 shadow-xl">
+                    <div class="card-body">
+                        <h3 class="card-title text-2xl mb-6 flex items-center">
+                            <i class="ti ti-map-pin text-primary text-3xl mr-2"></i>
+                            Контактная информация
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <i class="ti ti-building text-xl text-primary mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold">Офис</h4>
+                                    <p>г. Мурманск, ул. Ленина, 82, офис 305</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <i class="ti ti-phone text-xl text-primary mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold">Телефон</h4>
+                                    <p>+7 (815) 234-56-78</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <i class="ti ti-mail text-xl text-primary mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold">Email</h4>
+                                    <p>info@kolsky-mastodon.ru</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <i class="ti ti-clock text-xl text-primary mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold">Время работы</h4>
+                                    <p>Пн-Пт: 9:00 - 17:00<br />Сб: 10:00 - 15:00<br />Вс: выходной</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <h4 class="font-bold mb-2">Мы в социальных сетях</h4>
+                            <div class="flex gap-4">
+                                <a href="#" class="btn btn-circle btn-outline">
+                                    <i class="ti ti-brand-vk text-xl"></i>
+                                </a>
+                                <a href="#" class="btn btn-circle btn-outline">
+                                    <i class="ti ti-brand-telegram text-xl"></i>
+                                </a>
+                                <a href="#" class="btn btn-circle btn-outline">
+                                    <i class="ti ti-brand-whatsapp text-xl"></i>
+                                </a>
+                                <a href="#" class="btn btn-circle btn-outline">
+                                    <i class="ti ti-mail text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card bg-base-200 shadow-xl">
+                    <div class="card-body">
+                        <h3 class="card-title text-2xl mb-6 flex items-center">
+                            <i class="ti ti-mail-forward text-primary text-3xl mr-2"></i>
+                            Напишите нам
+                        </h3>
+                        
+                        <form>
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">Ваше имя</span>
+                                </label>
+                                <input type="text" placeholder="Имя" class="input input-bordered" required />
+                            </div>
+                            
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">Email</span>
+                                </label>
+                                <input type="email" placeholder="example@mail.ru" class="input input-bordered" required />
+                            </div>
+                            
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">Тема сообщения</span>
+                                </label>
+                                <select class="select select-bordered w-full">
+                                    <option disabled selected>Выберите тему</option>
+                                    <option>Техническая поддержка</option>
+                                    <option>Вопрос по работе портала</option>
+                                    <option>Предложение по улучшению</option>
+                                    <option>Другое</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-control mb-6">
+                                <label class="label">
+                                    <span class="label-text">Сообщение</span>
+                                </label>
+                                <textarea class="textarea textarea-bordered h-24" placeholder="Ваше сообщение" required></textarea>
+                            </div>
+                            
+                            <div class="form-control mt-6">
+                                <button class="btn btn-primary">
+                                    <i class="ti ti-send mr-2"></i>
+                                    Отправить
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ -->
+        <section class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">Часто задаваемые вопросы</h2>
+                <p class="text-xl max-w-3xl mx-auto">Ответы на самые популярные вопросы о нашем портале</p>
             </div>
             
-            <!-- Текстовые отчеты -->
-            <div class="card bg-base-200 shadow-xl">
-                <div class="card-body">
-                    <h2 class="card-title text-secondary">
-                        <i class="ti ti-file-text text-2xl"></i>
-                        Текстовые отчеты
-                    </h2>
-                    <p>Заполните форму отчета о проделанной работе</p>
-                    <div class="card-actions justify-end">
-                        <button class="btn btn-secondary">
-                            <i class="ti ti-pencil"></i>
-                            Создать
-                        </button>
+            <div class="max-w-3xl mx-auto">
+                <div class="collapse collapse-plus bg-base-200 mb-4">
+                    <input type="radio" name="my-accordion-3" checked="checked" /> 
+                    <div class="collapse-title text-xl font-medium">
+                        Как начать работу с порталом?
+                    </div>
+                    <div class="collapse-content"> 
+                        <p>Для начала работы с порталом вам необходимо зарегистрироваться, используя корпоративную почту. После подтверждения регистрации вы получите доступ к функциям портала в соответствии с вашей должностью и отделом.</p>
+                    </div>
+                </div>
+                
+                <div class="collapse collapse-plus bg-base-200 mb-4">
+                    <input type="radio" name="my-accordion-3" /> 
+                    <div class="collapse-title text-xl font-medium">
+                        Как загрузить фотоотчет с объекта?
+                    </div>
+                    <div class="collapse-content"> 
+                        <p>В разделе "Мои объекты" выберите нужный объект, затем нажмите кнопку "Загрузить фотоотчет". Вы можете выбрать фото из галереи или сделать новое фото прямо через приложение. Геолокация добавляется автоматически.</p>
+                    </div>
+                </div>
+                
+                <div class="collapse collapse-plus bg-base-200 mb-4">
+                    <input type="radio" name="my-accordion-3" /> 
+                    <div class="collapse-title text-xl font-medium">
+                        Как получить документацию по проекту?
+                    </div>
+                    <div class="collapse-content"> 
+                        <p>Вся документация по проектам доступна в разделе "Документация". Выберите нужный объект, и вы увидите список всех доступных документов. Вы можете скачать необходимые файлы или просмотреть их онлайн.</p>
+                    </div>
+                </div>
+                
+                <div class="collapse collapse-plus bg-base-200 mb-4">
+                    <input type="radio" name="my-accordion-3" /> 
+                    <div class="collapse-title text-xl font-medium">
+                        Что делать, если я забыл пароль?
+                    </div>
+                    <div class="collapse-content"> 
+                        <p>На странице входа нажмите на ссылку "Забыли пароль?". Введите вашу корпоративную почту, и вы получите инструкции по восстановлению доступа на указанный email.</p>
+                    </div>
+                </div>
+                
+                <div class="collapse collapse-plus bg-base-200">
+                    <input type="radio" name="my-accordion-3" /> 
+                    <div class="collapse-title text-xl font-medium">
+                        Как настроить уведомления?
+                    </div>
+                    <div class="collapse-content"> 
+                        <p>В личном кабинете перейдите в раздел "Настройки" и выберите "Уведомления". Здесь вы можете настроить способы получения уведомлений (email, браузер, SMS) и их частоту для различных типов событий.</p>
                     </div>
                 </div>
             </div>
-            
-            <!-- Документация -->
-            <div class="card bg-base-200 shadow-xl">
-                <div class="card-body">
-                    <h2 class="card-title text-accent">
-                        <i class="ti ti-file-description text-2xl"></i>
-                        Документация
-                    </h2>
-                    <p>Доступ к технической и юридической документации</p>
-                    <div class="card-actions justify-end">
-                        <button class="btn btn-accent">
-                            <i class="ti ti-folder"></i>
-                            Открыть
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </section>
         
-        <!-- Таблица объектов -->
-        <div class="card bg-base-200 shadow-xl mb-8">
-            <div class="card-body">
-                <h2 class="card-title text-xl mb-4">
-                    <i class="ti ti-building-community text-2xl mr-2"></i>
-                    Мои объекты
-                </h2>
-                <div class="overflow-x-auto">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Название</th>
-                                <th>Адрес</th>
-                                <th>Статус</th>
-                                <th>Действия</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>1</th>
-                                <td>ЖК "Полярная звезда"</td>
-                                <td>г. Мурманск, ул. Ленина, 45</td>
-                                <td><div class="badge badge-success">Активный</div></td>
-                                <td>
-                                    <div class="flex gap-2">
-                                        <button class="btn btn-xs btn-outline btn-primary"><i class="ti ti-eye"></i></button>
-                                        <button class="btn btn-xs btn-outline btn-secondary"><i class="ti ti-file-upload"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>Офисный центр "Арктика"</td>
-                                <td>г. Мурманск, пр. Кольский, 110</td>
-                                <td><div class="badge badge-success">Активный</div></td>
-                                <td>
-                                    <div class="flex gap-2">
-                                        <button class="btn btn-xs btn-outline btn-primary"><i class="ti ti-eye"></i></button>
-                                        <button class="btn btn-xs btn-outline btn-secondary"><i class="ti ti-file-upload"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <td>ТРЦ "Северное сияние"</td>
-                                <td>г. Мурманск, ул. Полярные Зори, 62</td>
-                                <td><div class="badge badge-warning">На паузе</div></td>
-                                <td>
-                                    <div class="flex gap-2">
-                                        <button class="btn btn-xs btn-outline btn-primary"><i class="ti ti-eye"></i></button>
-                                        <button class="btn btn-xs btn-outline btn-secondary"><i class="ti ti-file-upload"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>4</th>
-                                <td>Гостиница "Заполярье"</td>
-                                <td>г. Мурманск, ул. Книповича, 17</td>
-                                <td><div class="badge badge-success">Активный</div></td>
-                                <td>
-                                    <div class="flex gap-2">
-                                        <button class="btn btn-xs btn-outline btn-primary"><i class="ti ti-eye"></i></button>
-                                        <button class="btn btn-xs btn-outline btn-secondary"><i class="ti ti-file-upload"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>5</th>
-                                <td>Промышленный комплекс "Норд"</td>
-                                <td>Мурманская обл., г. Североморск</td>
-                                <td><div class="badge badge-success">Активный</div></td>
-                                <td>
-                                    <div class="flex gap-2">
-                                        <button class="btn btn-xs btn-outline btn-primary"><i class="ti ti-eye"></i></button>
-                                        <button class="btn btn-xs btn-outline btn-secondary"><i class="ti ti-file-upload"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Уведомления -->
-        <div class="card bg-base-200 shadow-xl">
-            <div class="card-body">
-                <h2 class="card-title text-xl mb-4">
-                    <i class="ti ti-bell text-2xl mr-2"></i>
-                    Последние уведомления
-                </h2>
-                <div class="space-y-4">
-                    <div class="alert alert-info">
-                        <i class="ti ti-info-circle"></i>
-                        <span>Добавлена новая документация для объекта "ЖК Полярная звезда"</span>
-                    </div>
-                    <div class="alert alert-success">
-                        <i class="ti ti-check"></i>
-                        <span>Ваш отчет по объекту "Офисный центр Арктика" принят</span>
-                    </div>
-                    <div class="alert alert-warning">
-                        <i class="ti ti-alert-triangle"></i>
-                        <span>Напоминание: отправьте фотоотчет по объекту "ТРЦ Северное сияние" до 25.04.2025</span>
+        <!-- CTA -->
+        <section class="mb-8">
+            <div class="card bg-primary text-primary-content">
+                <div class="card-body text-center py-12">
+                    <h2 class="card-title text-3xl font-bold mx-auto mb-4">Готовы повысить эффективность своей работы?</h2>
+                    <p class="max-w-2xl mx-auto mb-8 text-lg">Присоединяйтесь к корпоративному порталу ООО "Кольский Мастодонт" и получите доступ к современным инструментам для работы в строительной отрасли.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="{{ url_for('auth.login') }}" class="btn btn-lg glass">
+                            <i class="ti ti-login mr-2"></i>
+                            Войти
+                        </a>
+                        <a href="{{ url_for('auth.register') }}" class="btn btn-lg glass">
+                            <i class="ti ti-user-plus mr-2"></i>
+                            Зарегистрироваться
+                        </a>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
 
     <!-- Подвал -->
-    <footer class="footer footer-center p-10 bg-base-200 text-base-content mt-8">
+    <footer class="footer footer-center p-10 bg-base-200 text-base-content">
+        <div class="grid grid-flow-col gap-4">
+            <a href="#about" class="link link-hover">О компании</a> 
+            <a href="#features" class="link link-hover">Возможности</a> 
+            <a href="#contact" class="link link-hover">Контакты</a> 
+            <a href="#" class="link link-hover">Политика конфиденциальности</a>
+            <a href="#" class="link link-hover">Техническая поддержка</a>
+        </div>
         <div>
             <div class="grid grid-flow-col gap-4">
-                <a class="link link-hover">О компании</a> 
-                <a class="link link-hover">Контакты</a> 
-                <a class="link link-hover">Поддержка</a> 
-                <a class="link link-hover">Политика конфиденциальности</a>
+                <a href="#" class="btn btn-ghost btn-circle">
+                    <i class="ti ti-brand-vk text-xl"></i>
+                </a> 
+                <a href="#" class="btn btn-ghost btn-circle">
+                    <i class="ti ti-brand-telegram text-xl"></i>
+                </a> 
+                <a href="#" class="btn btn-ghost btn-circle">
+                    <i class="ti ti-brand-whatsapp text-xl"></i>
+                </a>
+                <a href="#" class="btn btn-ghost btn-circle">
+                    <i class="ti ti-mail text-xl"></i>
+                </a>
             </div>
-            <p class="mt-4">&copy; 2025 ООО "Кольский Мастодонт" - Все права защищены</p>
+        </div>
+        <div>
+            <p>&copy; 2025 ООО "Кольский Мастодонт" - Все права защищены</p>
         </div>
     </footer>
     
@@ -273,4 +614,4 @@
         }
     </script>
 </body>
-</html> 
+</html>
